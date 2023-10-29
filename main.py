@@ -2,7 +2,7 @@ from random import randint, choice, uniform
 from string import ascii_lowercase
 import re
 from itertools import chain
-from time import time
+#from time import time
 
 
 class RDG:
@@ -24,7 +24,7 @@ class RDG:
 
     #     return wrapper
 
-    def rand_bool(num_rows: int, true_frac=0.4, false_frac=0.6):
+    def rand_bool(num_rows: int, true_frac=0.5, false_frac=0.5):
         """
         Args:
             num_rows (int): number of rows
@@ -108,7 +108,7 @@ class RDG:
         Args:
             num_rows (int): number of rows
             min_ltrs (int, optional): minimum letters in word(s) total. Defaults to 6.
-            max_ltrs (int, optional): maximum letters in word(s) total. Defaults to 12.
+            max_ltrs (int, optional): maximum letters in word(s) total. Defaults to 14.
             num_words (int, optional): desired number of words. Defaults to 2.
             capitalise (bool, optional): sets title case. Defaults to True.
             strip (bool, optional): removes trailing whitespace. Defaults to True.
