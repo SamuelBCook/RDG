@@ -14,6 +14,8 @@ Each returns a generator containing the desired data type(s). For each method, t
 
 ## Methods
 
+> Run 'python3 -m randdg -help' to see a list of methods
+
 ### __rand_bool__
  > Creates a generator containing only bools.
 
