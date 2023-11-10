@@ -2,7 +2,8 @@ from random import randint, choice, uniform
 from string import ascii_lowercase
 import re
 from itertools import chain
-#from time import time
+from time import time
+from datetime import timedelta, datetime
 
 
 class RDG:
@@ -24,7 +25,7 @@ class RDG:
 
     #     return wrapper
 
-    def rand_bool(num_rows: int, true_frac=0.5, false_frac=0.5):
+    def rand_bool(num_rows: int, true_frac=0.4, false_frac=0.6):
         """
         Args:
             num_rows (int): number of rows
@@ -42,6 +43,10 @@ class RDG:
             return RDG._equal_bool(num_rows)
         else:
             return RDG._unequal_bool(num_rows, true_frac, false_frac)
+
+    def rand_email(num_rows: int):
+        for _ in range(num_rows):
+            yield f"{RDG.rand_text(num_rows,num_words=1).__next__()}@{RDG.rand_choice(num_rows,['outlook','yahoo','hotmail']).__next__()}{RDG.rand_choice(num_rows,['.co.uk','.com','.fr']).__next__()}".lower()
 
     def rand_float(num_rows: int, min_float=0, max_float=20, decimals=2):
         """
@@ -84,6 +89,38 @@ class RDG:
         for _ in range(num_rows):
             yield (randint(int(min), int(max)))
 
+    def rand_dates(
+        num_rows: int,
+        start_date: str = "2000-12-01",
+        end_date: str = "2010-12-01",
+    ):
+        if re.fullmatch(r"^[\d]{4}-[\d]{2}-[\d]{2}$", start_date) and re.fullmatch(
+            r"^[\d]{4}-[\d]{2}-[\d]{2}$", end_date
+        ):
+            start_date_obj = datetime.strptime(start_date, "%Y-%m-%d").date()
+            end_date_obj = datetime.strptime(end_date, "%Y-%m-%d").date()
+            print("1")
+
+        elif re.fullmatch(
+            r"^[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}:[\d]{2}$", start_date
+        ) and re.fullmatch(
+            r"^[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}:[\d]{2}$", end_date
+        ):
+            start_date_obj = datetime.strptime(start_date, "%Y-%m-%d %H:%M:%S")
+            end_date_obj = datetime.strptime(end_date, "%Y-%m-%d %H:%M:%S")
+            print("2")
+
+        else:
+            error_mess = f"Function: {RDG.rand_dates.__name__} - dates(times) must both be in format (inc. whitespace if timestamp): YYYY-MM-DD HH:MM:SS"
+            raise ValueError(error_mess)
+
+        delta = end_date_obj - start_date_obj
+        delta = delta.days * 24 * 60 * 60
+
+        for _ in num_rows:
+            random_seconds = randint(0, delta)
+            yield start_date_obj + timedelta(seconds=random_seconds)
+
     def rand_choice(num_rows: int, values: list):
         """
         Args:
@@ -108,7 +145,7 @@ class RDG:
         Args:
             num_rows (int): number of rows
             min_ltrs (int, optional): minimum letters in word(s) total. Defaults to 6.
-            max_ltrs (int, optional): maximum letters in word(s) total. Defaults to 14.
+            max_ltrs (int, optional): maximum letters in word(s) total. Defaults to 12.
             num_words (int, optional): desired number of words. Defaults to 2.
             capitalise (bool, optional): sets title case. Defaults to True.
             strip (bool, optional): removes trailing whitespace. Defaults to True.
