@@ -1,15 +1,15 @@
 # __main__.py
 
-import sys
+import argparse
 from randdg import *
 
 
 def main():
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "-help":
-            print("list of args TBC")
-        else:
-            raise ValueError("Only 'help' arg accepted")
+    parser = argparse.ArgumentParser(description="Psuedo-random data generator")
+    parser.add_argument(
+        "-n", default=100, help="number of rows of data required", type=int
+    )
+    args = parser.parse_args()
 
 
 if __name__ == "__main__":
