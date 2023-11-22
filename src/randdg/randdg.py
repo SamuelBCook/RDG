@@ -23,7 +23,7 @@ class Rdg:
     #     return wrapper
 
     @staticmethod
-    def rand_bool(num_rows: int, true_frac=0.4, false_frac=0.6):
+    def rand_bool(num_rows: int, true_frac: float = 0.4, false_frac: float = 0.6):
         """
         Args:
             num_rows (int): number of rows
@@ -48,7 +48,12 @@ class Rdg:
             yield f"{Rdg.rand_text(num_rows,num_words=1).__next__()}@{Rdg.rand_choice(num_rows,['outlook','yahoo','hotmail']).__next__()}{Rdg.rand_choice(num_rows,['.co.uk','.com','.fr']).__next__()}".lower()
 
     @staticmethod
-    def rand_float(num_rows: int, min_float=0, max_float=20, decimals=2):
+    def rand_float(
+        num_rows: int,
+        min_float: float = 0.0,
+        max_float: float = 20.0,
+        decimals: int = 2,
+    ):
         """
         Args:
             num_rows (int): number of rows
@@ -70,7 +75,7 @@ class Rdg:
             yield round(uniform(float(min_float), float(max_float)), decimals)
 
     @staticmethod
-    def rand_int(num_rows: int, min_int=0, max_int=100):
+    def rand_int(num_rows: int, min_int: int = 0, max_int: int = 100):
         """
         Args:
             num_rows (int): number of rows
@@ -139,11 +144,11 @@ class Rdg:
     @staticmethod
     def rand_text(
         num_rows: int,
-        min_ltrs=6,
-        max_ltrs=14,
-        num_words=3,
-        capitalise=True,
-        strip=True,
+        min_ltrs: int = 6,
+        max_ltrs: int = 14,
+        num_words: int = 3,
+        capitalise: bool = True,
+        strip: bool = True,
     ):
         """
         Args:
@@ -177,7 +182,7 @@ class Rdg:
             yield new_string
 
     @staticmethod
-    def _recursive_split(target_string: str, num_splits: int, used=[0]):
+    def _recursive_split(target_string: str, num_splits: int, used: list = [0]):
         """
         Slower than _not_recursive_split method.
 
